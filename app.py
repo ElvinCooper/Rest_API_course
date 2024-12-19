@@ -28,10 +28,10 @@ def create_store():
 @app.post("/item")  
 def create_item():
     item_data = request.get_json()
-    if (
-        "precio" not in item_data
-        or "store_id" not in item_data
-        or "name" not in item_data
+    if (        
+        "store_id" not in item_data 
+        or "precio" not in item_data           
+        or "descripcion" not in item_data        
     ):
         abort(400, message="Bad request. Asegure que el precio y el su id esten incluidos en el json")
     if item_data["store_id"] not in stores:
@@ -41,7 +41,7 @@ def create_item():
     item = {**item_data, "id": item_id}
     items[item_id] = item
         
-    return item
+    return item, 201
         
 
 @app.get("/store/<string:store_id>")
